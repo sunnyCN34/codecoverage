@@ -50,14 +50,14 @@ public class FileInfoService{
 				
 				InputStream testFileInputStream = new FileInputStream(fileInfo.testFile);
 				ANTLRInputStream testinput = new ANTLRInputStream(testFileInputStream);
-				CFSCRIPTLexer testLexer = new CFSCRIPTLexer(testInput);
+				CFSCRIPTLexer testLexer = new CFSCRIPTLexer(testinput);
 				CommonTokenStream testTokens = new CommonTokenStream(testLexer);
 				CFSCRIPTParser testParser = new CFSCRIPTParser(testTokens);
 				ParseTree testTree = parser.componentDeclaration();
 				ParseTreeWalker testWalker = new ParseTreeWalker();
-				ExtractFunctionCallTool testListener = new ExtractFunctionCallTool(fileInfo.functions);
+				//ExtractFunctionCallTool testListener = new ExtractFunctionCallTool(fileInfo.functions);
 				
-				
+				//walker.walk(testlistener,testTree);
 				
 				
 			}catch (IOException e) {
