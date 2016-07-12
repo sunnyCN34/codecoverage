@@ -45,7 +45,7 @@ public class FileInfoService{
 				
 				fileInfo.functions = listener.functionNames;
 				
-				fileInfo.test();
+				fileInfo.populateTestFile();
 				//check if functions are being testing in test files
 				
 				InputStream testFileInputStream = new FileInputStream(fileInfo.testFile);
@@ -53,11 +53,12 @@ public class FileInfoService{
 				CFSCRIPTLexer testLexer = new CFSCRIPTLexer(testinput);
 				CommonTokenStream testTokens = new CommonTokenStream(testLexer);
 				CFSCRIPTParser testParser = new CFSCRIPTParser(testTokens);
-				ParseTree testTree = parser.componentDeclaration();
-				ParseTreeWalker testWalker = new ParseTreeWalker();
-				//ExtractFunctionCallTool testListener = new ExtractFunctionCallTool(fileInfo.functions);
+				ParseTree testTree = testParser.componentDeclaration();
 				
-				//walker.walk(testlistener,testTree);
+				ParseTreeWalker testWalker = new ParseTreeWalker();
+				ExtractFunctionCallTool testListener = new ExtractFunctionCallTool(fileInfo);
+				
+				testWalker.walk(testListener,testTree);
 				
 				
 			}catch (IOException e) {
