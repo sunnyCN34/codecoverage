@@ -4,27 +4,27 @@ import java.io.*;
 import java.util.*;
 import org.antlr.v4.runtime.BaseErrorListener;
 
-
-
-public class FileInfo{
+public  class FileInfo{
 	File file;
-	List<String> functions= new ArrayList<String>();
+	static List<String> functions = new ArrayList<String>();
 	List<String> callfunctionNames = new ArrayList<String>();
 	File testFile;
 	boolean testFileExists=false;
 	int functionsTested=0;
 	//HashMap<String,>
-	
+	static int totalNumberOfMatchesInAllFiles=0;
 	public static String testFilePath;
 	FileInfo(File file){
 		
 		this.file = file;	
 		
 	}
+	public FileInfo(){}
 	public void getReportOfTestedFunction(){
 		int numberOfDeclaredFunctions= functions.size();
 		int numberOfFunctionCalls= callfunctionNames.size();
 		int numberOfMatchedFunctions=0;
+		int a= 0;
 		for(int i=0; i<numberOfDeclaredFunctions; i++)
 		{
 			
@@ -34,14 +34,16 @@ public class FileInfo{
 				if(callfunctionNames.get(j).equals(functions.get(i)))
 				{
 				   numberOfMatchedFunctions ++;
+				   totalNumberOfMatchesInAllFiles++;
 				}
 			}
 		}
-System.out.println("Total declared function= "+numberOfDeclaredFunctions+" Total number of function calls= "+numberOfFunctionCalls+" Total tested function= "+numberOfMatchedFunctions);
+		//System.out.println("counterSmith="+totalNumberOfMatchesInAllFiles);
+		
+		System.out.println("Total declared function= "+numberOfDeclaredFunctions+"  Total number of function calls= "+numberOfFunctionCalls+"  Total tested function= "+numberOfMatchedFunctions);
 		int percentage= (numberOfMatchedFunctions*100)/ numberOfDeclaredFunctions;
-	System.out.println("PERCENTAGE OF TESTED FUNCTION= "+percentage);
-		
-		
+		System.out.println("PERCENTAGE OF TESTED FUNCTION IN THIS FILE= "+percentage+"%");
+		//System.out.println("a="+a);		
 	}
 /*	public int getReportOfTestedFunction(){
 		int numberOfDeclaredFunctions= functions.size();
@@ -76,7 +78,7 @@ System.out.println("Total declared function= "+numberOfDeclaredFunctions+" Total
 	}
 	*/
 	public int getFunctionsCount(){
-		return this.functions.size();
+		return functions.size();
 	}
 	
 	void populateTestFile(){
@@ -95,5 +97,7 @@ System.out.println("Total declared function= "+numberOfDeclaredFunctions+" Total
 	public static String Name(){
 		return testFilePath;
 	}
-	
+	public static int getFunctionCounter(){
+		System.out.println("Function Names: " + functions.toString());
+		return functions.size();}
 }

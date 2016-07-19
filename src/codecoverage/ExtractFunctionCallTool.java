@@ -17,6 +17,7 @@ public class ExtractFunctionCallTool extends CFSCRIPTParserBaseListener {
 	public void enterFunctionCall(CFSCRIPTParser.FunctionCallContext ctx) {
 		String value="";
 		String testFunctionBeingCalled = ctx.getText();
+		
 		for(int i=0; i<testFunctionBeingCalled.length(); i++)
 		{
 			char a= testFunctionBeingCalled.charAt(i);
@@ -28,6 +29,8 @@ public class ExtractFunctionCallTool extends CFSCRIPTParserBaseListener {
 			}
 			
 		}
+		
+		//System.out.println(""+counterChamp);
 		fileInfo.callfunctionNames.add(value);
 		//System.out.println(fileInfo.callfunctionNames);
 		//String splited[]= testFunctionBeingCalled.split("(");
