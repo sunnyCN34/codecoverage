@@ -2,38 +2,102 @@ package codecoverage;
 
 import java.io.*;
 import java.util.*;
+import org.antlr.v4.runtime.BaseErrorListener;
 
-
-
-public class FileInfo{
+public  class FileInfo{
 	File file;
-	List<String> functions;
+	static List<String> functions = new ArrayList<String>();
+	List<String> callfunctionNames = new ArrayList<String>();
 	File testFile;
-	
+	boolean testFileExists=false;
+	int functionsTested=0;
 	//HashMap<String,>
-	
-	
+	static int totalNumberOfMatchesInAllFiles=0;
+	public static String testFilePath;
 	FileInfo(File file){
 		
-		this.file = file;
-		
-		
+		this.file = file;	
 		
 	}
-	
-	void test(){
-		for(int i=0; i < this.functions.size(); i++){
-			String functionName = this.functions.get(i);
+	public FileInfo(){}
+	public void getReportOfTestedFunction(){
+		int numberOfDeclaredFunctions= functions.size();
+		int numberOfFunctionCalls= callfunctionNames.size();
+		int numberOfMatchedFunctions=0;
+		int a= 0;
+		for(int i=0; i<numberOfDeclaredFunctions; i++)
+		{
 			
-			String slatwallDirectory = this.file.getAbsolutePath().split("model")[0];
-			System.out.println(slatwallDirectory);
-			String relativePath = this.file.getAbsolutePath().split("model")[1];
-			System.out.println(relativePath);
-			String beginningString = relativePath.split("\\.")[0];
-			String testFilePath = slatwallDirectory+"meta/tests/unit"+beginningString+"Test.cfc";
-			this.testFile = new File(testFilePath);
-			System.out.println("exists:"+testFile.exists());
+			for(int j=0;j<numberOfFunctionCalls;j++)
+			{
+				//System.out.println("declared= "+functions.get(i)+" called function= "+callfunctionNames.get(j));
+				if(callfunctionNames.get(j).equals(functions.get(i)))
+				{
+				   numberOfMatchedFunctions ++;
+				   totalNumberOfMatchesInAllFiles++;
+				}
+			}
 		}
+		//System.out.println("counterSmith="+totalNumberOfMatchesInAllFiles);
+		
+		System.out.println("Total declared function= "+numberOfDeclaredFunctions+"  Total number of function calls= "+numberOfFunctionCalls+"  Total tested function= "+numberOfMatchedFunctions);
+		int percentage= (numberOfMatchedFunctions*100)/ numberOfDeclaredFunctions;
+		System.out.println("PERCENTAGE OF TESTED FUNCTION IN THIS FILE= "+percentage+"%");
+		//System.out.println("a="+a);		
+	}
+/*	public int getReportOfTestedFunction(){
+		int numberOfDeclaredFunctions= functions.size();
+		int numberOfFunctionCalls= callfunctionNames.size();
+		HashSet<String> myFunctionCallSet = new HashSet<>(callfunctionNames);
+		HashSet<String> myFunctionSet = new HashSet<>(functions);
+		HashSet<String> intersection = new HashSet<>();
+		Iterator<String> functionIt = myFunctionCallSet.iterator();
+		int count = 0;
+		//All matches could be
+		System.out.println(myFunctionSet.toString());
+		while (functionIt.hasNext()){
+			String current = functionIt.next();
+			System.out.println("Currrent is " + current );
+			
+			if (myFunctionSet.contains(current)){
+				//found match.
+				count++;
+				
+			}
+		}
+		System.out.println(""+count);
+		//myHashSet.
+		//Two sets
+		//get an iterator on set 1.  keep calling next and checking if the other has it.
+		
+		
+	//System.out.println("Total declared function= "+numberOfDeclaredFunctions+" Total number of function calls= "+numberOfFunctionCalls+" Total tested function= "+numberOfMatchedFunctions);
+	//	int percentage= (numberOfMatchedFunctions*100)/ numberOfDeclaredFunctions;
+//	System.out.println(""+percentage);
+		return count;  
+	}
+	*/
+	public int getFunctionsCount(){
+		return functions.size();
 	}
 	
+	void populateTestFile(){
+		String slatwallDirectory = this.file.getAbsolutePath().split("model")[0];
+		
+		String relativePath = this.file.getAbsolutePath().split("model")[1];
+		
+		String beginningString = relativePath.split("\\.")[0];
+		testFilePath = slatwallDirectory+"meta/tests/unit"+beginningString+"Test.cfc";
+		this.testFile = new File(testFilePath);
+		System.out.println("testing:"+file.getName());
+		System.out.println("exists:"+testFile.exists());
+		this.testFileExists = testFile.exists();
+		
+	}
+	public static String Name(){
+		return testFilePath;
+	}
+	public static int getFunctionCounter(){
+		System.out.println("Function Names: " + functions.toString());
+		return functions.size();}
 }

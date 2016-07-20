@@ -174,6 +174,7 @@ public class CFSCRIPTLexer extends Lexer {
 
 	public CFSCRIPTLexer(CharStream input) {
 		super(input);
+		this.removeErrorListeners();
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
