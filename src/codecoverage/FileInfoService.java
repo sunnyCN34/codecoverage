@@ -47,8 +47,7 @@ public class FileInfoService{
 				
 				
 		        parser.removeErrorListeners();
-		        //parser.addErrorListener(new error()); // add ours
-		      //  parser.prog(); // parse as usual
+		     
 
 				ParseTreeWalker walker = new ParseTreeWalker();
 				
@@ -85,6 +84,12 @@ public class FileInfoService{
 				//fileInfo.getReportOfTestedFunction();
 				else
 				{
+					File fk = new File("/Users/ten24user/git/codecoverage/htmlOutput.html");
+					   
+			        BufferedWriter bw = new BufferedWriter(new FileWriter(fk,true));
+			        bw.write("\n\nTest file not found. Hence percentage of coverage is zero.");
+			        bw.write("\n\n<----------------------------------------------------------------------------------------->");
+			        bw.close();
 					System.out.println("Test file not found. Hence percentage of coverage is zero.");
 				} 
 				

@@ -2,6 +2,7 @@ package codecoverage;
 
 import java.io.*;
 import java.util.*;
+
 import org.antlr.v4.runtime.BaseErrorListener;
 
 public  class FileInfo{
@@ -11,7 +12,9 @@ public  class FileInfo{
 	File testFile;
 	boolean testFileExists=false;
 	int functionsTested=0;
-	//HashMap<String,>
+	
+	int a=0;
+	
 	static int totalNumberOfMatchesInAllFiles=0;
 	public static String testFilePath;
 	FileInfo(File file){
@@ -20,17 +23,17 @@ public  class FileInfo{
 		
 	}
 	public FileInfo(){}
-	public void getReportOfTestedFunction(){
+	public void getReportOfTestedFunction() throws IOException{
 		int numberOfDeclaredFunctions= functions.size();
 		int numberOfFunctionCalls= callfunctionNames.size();
 		int numberOfMatchedFunctions=0;
-		int a= 0;
+		
 		for(int i=0; i<numberOfDeclaredFunctions; i++)
 		{
 			
 			for(int j=0;j<numberOfFunctionCalls;j++)
 			{
-				//System.out.println("declared= "+functions.get(i)+" called function= "+callfunctionNames.get(j));
+				
 				if(callfunctionNames.get(j).equals(functions.get(i)))
 				{
 				   numberOfMatchedFunctions ++;
@@ -38,13 +41,38 @@ public  class FileInfo{
 				}
 			}
 		}
-		//System.out.println("counterSmith="+totalNumberOfMatchesInAllFiles);
 		
+	    File file = new File("/Users/ten24user/git/codecoverage/htmlOutput.html");
+	   
+        BufferedWriter bw = new BufferedWriter(new FileWriter(file,true));
+        bw.write("<table>");
+        bw.write("<tr>");
+        bw.write("<td>"+Integer.toString(numberOfMatchedFunctions)+"</td>");
+  
+		bw.write(numberOfDeclaredFunctions);
+	    bw.write(numberOfFunctionCalls);
+        bw.write(Integer.toString(numberOfMatchedFunctions));
+        bw.write("</td>");
+        
+        bw.write("</tr>");
+        bw.write("</table>");
+	    
 		System.out.println("Total declared function= "+numberOfDeclaredFunctions+"  Total number of function calls= "+numberOfFunctionCalls+"  Total tested function= "+numberOfMatchedFunctions);
 		int percentage= (numberOfMatchedFunctions*100)/ numberOfDeclaredFunctions;
+		if(percentage>100)// if function is called more than once. 
+		{
+			bw.write("\n\nPERCENTAGE OF TESTED FUNCTION IN THIS FILE= 100%");
+			System.out.println("PERCENTAGE OF TESTED FUNCTION IN THIS FILE= 100%"+"(You called few functions more than once in test file for this component)");
+			bw.write("\n\n<----------------------------------------------------------------------------------------->");
+			bw.close();
+		}
+		else if(percentage<=100){
+		bw.write("\n\nPERCENTAGE OF TESTED FUNCTION IN THIS FILE= "+Integer.toString(percentage)+"%");
 		System.out.println("PERCENTAGE OF TESTED FUNCTION IN THIS FILE= "+percentage+"%");
-		//System.out.println("a="+a);		
+		bw.write("\n\n<----------------------------------------------------------------------------------------->");
+		bw.close();		
 	}
+		}
 /*	public int getReportOfTestedFunction(){
 		int numberOfDeclaredFunctions= functions.size();
 		int numberOfFunctionCalls= callfunctionNames.size();
@@ -81,7 +109,7 @@ public  class FileInfo{
 		return functions.size();
 	}
 	
-	void populateTestFile(){
+	void populateTestFile() throws IOException{
 		String slatwallDirectory = this.file.getAbsolutePath().split("model")[0];
 		
 		String relativePath = this.file.getAbsolutePath().split("model")[1];
@@ -89,10 +117,17 @@ public  class FileInfo{
 		String beginningString = relativePath.split("\\.")[0];
 		testFilePath = slatwallDirectory+"meta/tests/unit"+beginningString+"Test.cfc";
 		this.testFile = new File(testFilePath);
-		System.out.println("testing:"+file.getName());
-		System.out.println("exists:"+testFile.exists());
-		this.testFileExists = testFile.exists();
 		
+		File fz = new File("/Users/ten24user/git/codecoverage/htmlOutput.html");
+		   
+        BufferedWriter bw = new BufferedWriter(new FileWriter(fz,true));
+     //   bw.write("<----------------------------------------------------------------------------------------->");
+        bw.write("\n\n\n\n\nTesting: "+file.getName());
+        bw.write("\t \t Test File Present For "+file.getName()+": "+ Boolean.toString(testFile.exists()));
+		System.out.println("testing: "+file.getName());
+		System.out.println("exists: "+testFile.exists());
+		this.testFileExists = testFile.exists();
+		bw.close();
 	}
 	public static String Name(){
 		return testFilePath;
