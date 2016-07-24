@@ -30,10 +30,17 @@ public class CFCodeCoverageChecker {
         bw.write("<html>");
         bw.write("<body>");
         bw.write("<h1>Report For Code Coverage In Slatwall</h1>");
-      //  bw.write("<textarea cols=120 rows=30>");
-		
-		
-		
+      //  bw.write("<textarea cols=120 rows=30>")
+      //  bw.close();
+        bw.write("<table>");
+        bw.write("<tr>");
+        bw.write("<td>"+"Testing"+"</td>");
+        bw.write("<td>"+"Test File Present"+"</td>");
+        bw.write("<td>"+"Total Declared Function"+"</td>");
+        bw.write("<td>"+"Total number of function calls"+"</td>");
+        bw.write("<td>"+"Total Tested function"+"</td>");
+        bw.write("<td>"+"Total Percentage Of Coverage For This File"+"</td>");
+        bw.write("</tr>");
         bw.close();
 		List<FileInfo> fileInfos = fileInfoService.getFileInfosByModelPath(modelPath,true);
 	   
@@ -43,26 +50,26 @@ public class CFCodeCoverageChecker {
 		File file = new File("/Users/ten24user/git/codecoverage/htmlOutput.html");
 		   
         BufferedWriter bbw = new BufferedWriter(new FileWriter(file,true));
-        bbw.write("\n\n\n\n\t\t\t\tOVERALL REPORT FOR CODE COVERAGE");
+        bbw.write("<p>"+"OVERALL REPORT FOR CODE COVERAGE"+"</p>");
        
     
 		ExtractFunctionTool b1= new ExtractFunctionTool();
 		int totalFunctions=b1.totalNumberOfFunction;
 		System.out.println("\nTotal number of functions in all the parsed files= "+totalFunctions);
-		bbw.write("\n\nTotal number of functions in all the parsed files= "+ Integer.toString(totalFunctions));
+		bbw.write("<p>"+"Total number of functions in all the parsed files= "+ Integer.toString(totalFunctions)+"</p>");
 		
 		FileInfo b2= new FileInfo();
 		int totalMatches=b2.totalNumberOfMatchesInAllFiles;
 		
 		System.out.println("Total number of tested functions in all the files= "+totalMatches);
-		bbw.write("\nTotal number of tested functions in all the files= "+ Integer.toString(totalMatches));
+		bbw.write("<p>"+"Total number of tested functions in all the files= "+ Integer.toString(totalMatches)+"</p>");
 		
 		int totalCoverage= (totalMatches*100)/totalFunctions;
 		
 		System.out.println("\nTotal percentage of coverage we have for Slatwall is= "+totalCoverage+"%");
-		 bbw.write("\n\nTotal percentage of coverage we have for Slatwall is= "+Integer.toString(totalCoverage)+"%");
+		 bbw.write("<p>"+"Total percentage of coverage we have for Slatwall is= "+Integer.toString(totalCoverage)+"%"+"<p>");
 	       
-		 bbw.write("\n\n\t\t<-------------------------------THE END--------------------------------->");
+	//	 bbw.write("\n\n\t\t<-------------------------------THE END--------------------------------->");
 		 
 		 //   bbw.write("</textarea>");
 	        bbw.write("</body>");

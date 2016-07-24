@@ -41,38 +41,45 @@ public  class FileInfo{
 				}
 			}
 		}
+		int percentage= (numberOfMatchedFunctions*100)/ numberOfDeclaredFunctions;
 		
-	    File file = new File("/Users/ten24user/git/codecoverage/htmlOutput.html");
+	    File fc = new File("/Users/ten24user/git/codecoverage/htmlOutput.html");
 	   
-        BufferedWriter bw = new BufferedWriter(new FileWriter(file,true));
-        bw.write("<table>");
+        BufferedWriter bw = new BufferedWriter(new FileWriter(fc,true));
+  //      bw.write("<table>");
+ 
         bw.write("<tr>");
-        bw.write("<td>"+Integer.toString(numberOfMatchedFunctions)+"</td>");
-  
-		bw.write(numberOfDeclaredFunctions);
-	    bw.write(numberOfFunctionCalls);
-        bw.write(Integer.toString(numberOfMatchedFunctions));
-        bw.write("</td>");
         
+        bw.write("<td>"+file.getName()+"</td>");
+        bw.write("<td>"+Boolean.toString(testFile.exists())+"</td>");
+        bw.write("<td>"+Integer.toString(numberOfMatchedFunctions)+"</td>");
+        bw.write("<td>"+Integer.toString(numberOfDeclaredFunctions)+"</td>");
+        bw.write("<td>"+Integer.toString(numberOfFunctionCalls)+"</td>");
+        if(percentage<=100){
+        bw.write("<td>"+Integer.toString(percentage)+"</td>");
+        }
+        else{
+        	bw.write("<td>"+"100"+"</td>");
+        }
         bw.write("</tr>");
         bw.write("</table>");
 	    
 		System.out.println("Total declared function= "+numberOfDeclaredFunctions+"  Total number of function calls= "+numberOfFunctionCalls+"  Total tested function= "+numberOfMatchedFunctions);
-		int percentage= (numberOfMatchedFunctions*100)/ numberOfDeclaredFunctions;
-		if(percentage>100)// if function is called more than once. 
+		
+/*		if(percentage>100)// if function is called more than once. 
 		{
 			bw.write("\n\nPERCENTAGE OF TESTED FUNCTION IN THIS FILE= 100%");
 			System.out.println("PERCENTAGE OF TESTED FUNCTION IN THIS FILE= 100%"+"(You called few functions more than once in test file for this component)");
 			bw.write("\n\n<----------------------------------------------------------------------------------------->");
 			bw.close();
 		}
-		else if(percentage<=100){
-		bw.write("\n\nPERCENTAGE OF TESTED FUNCTION IN THIS FILE= "+Integer.toString(percentage)+"%");
+		else if(percentage<=100){*/
+	//	bw.write("\n\nPERCENTAGE OF TESTED FUNCTION IN THIS FILE= "+Integer.toString(percentage)+"%");
 		System.out.println("PERCENTAGE OF TESTED FUNCTION IN THIS FILE= "+percentage+"%");
-		bw.write("\n\n<----------------------------------------------------------------------------------------->");
+		//bw.write("\n\n<----------------------------------------------------------------------------------------->");
 		bw.close();		
 	}
-		}
+		
 /*	public int getReportOfTestedFunction(){
 		int numberOfDeclaredFunctions= functions.size();
 		int numberOfFunctionCalls= callfunctionNames.size();
@@ -121,9 +128,22 @@ public  class FileInfo{
 		File fz = new File("/Users/ten24user/git/codecoverage/htmlOutput.html");
 		   
         BufferedWriter bw = new BufferedWriter(new FileWriter(fz,true));
+        bw.write("<table>");
+       //   bw.write("<tr>");
+     //   bw.write("<td>"+"Testing"+"</td>");
+      //  bw.write("<td>"+"Test File Present For"+file.getName()+"</td>");
+      //  bw.write("</tr>");
+       // bw.write("<tr>");
+        
+     //   bw.write("<td>"+file.getName()+"</td>");
+       // bw.write("<td>"+Boolean.toString(testFile.exists())+"</td>");
+     
+  
+    //    bw.write("</tr>");
+   //     bw.write("</table>");
      //   bw.write("<----------------------------------------------------------------------------------------->");
-        bw.write("\n\n\n\n\nTesting: "+file.getName());
-        bw.write("\t \t Test File Present For "+file.getName()+": "+ Boolean.toString(testFile.exists()));
+    //    bw.write("\n\n\n\n\nTesting: "+file.getName());
+    //    bw.write("\t \t Test File Present For "+file.getName()+": "+ Boolean.toString(testFile.exists()));
 		System.out.println("testing: "+file.getName());
 		System.out.println("exists: "+testFile.exists());
 		this.testFileExists = testFile.exists();

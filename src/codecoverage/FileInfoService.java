@@ -87,8 +87,20 @@ public class FileInfoService{
 					File fk = new File("/Users/ten24user/git/codecoverage/htmlOutput.html");
 					   
 			        BufferedWriter bw = new BufferedWriter(new FileWriter(fk,true));
-			        bw.write("\n\nTest file not found. Hence percentage of coverage is zero.");
-			        bw.write("\n\n<----------------------------------------------------------------------------------------->");
+			       // bw.write("\n\nTest file not found. Hence percentage of coverage is zero.");
+			      //  bw.write("\n\n<----------------------------------------------------------------------------------------->");
+			        bw.write("<tr>");
+			        
+			        bw.write("<td>"+fileInfo.file.getName()+"</td>");
+			        bw.write("<td>"+Boolean.toString(fileInfo.testFile.exists())+"</td>");
+			        bw.write("<td>"+"0"+"</td>");
+			        bw.write("<td>"+"0"+"</td>");
+			        bw.write("<td>"+"0"+"</td>");
+			        
+			        bw.write("<td>"+"0"+"</td>");
+			       
+			        bw.write("</tr>");
+			        bw.write("</table>");
 			        bw.close();
 					System.out.println("Test file not found. Hence percentage of coverage is zero.");
 				} 
