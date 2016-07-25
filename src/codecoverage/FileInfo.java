@@ -2,6 +2,7 @@ package codecoverage;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.antlr.v4.runtime.BaseErrorListener;
 
@@ -12,7 +13,8 @@ public  class FileInfo{
 	File testFile;
 	boolean testFileExists=false;
 	int functionsTested=0;
-	
+	List<String> requiredFunctions = new ArrayList<>();
+	Set<String> experiment= new HashSet<>();
 	int a=0;
 	
 	static int totalNumberOfMatchesInAllFiles=0;
@@ -36,10 +38,26 @@ public  class FileInfo{
 				
 				if(callfunctionNames.get(j).equals(functions.get(i)))
 				{
-				   numberOfMatchedFunctions ++;
-				   totalNumberOfMatchesInAllFiles++;
+					requiredFunctions.add(callfunctionNames.get(j));
+				  
+				  // totalNumberOfMatchesInAllFiles++;
 				}
 			}
+		}
+		
+		if(requiredFunctions.isEmpty()){
+			numberOfMatchedFunctions=0;
+			System.out.println("function in hash set= "+requiredFunctions.toString());
+		}
+		else{
+			requiredFunctions = requiredFunctions.stream().distinct().collect(Collectors.toList());
+			for(int k=0;k<requiredFunctions.size();k++)
+			{
+				numberOfMatchedFunctions++;
+				totalNumberOfMatchesInAllFiles++;
+			}
+		
+		//	System.out.println("function in hash set= "+requiredFunctions.toString());
 		}
 		int percentage= (numberOfMatchedFunctions*100)/ numberOfDeclaredFunctions;
 		
@@ -52,11 +70,11 @@ public  class FileInfo{
         
         bw.write("<td>"+file.getName()+"</td>");
         bw.write("<td>"+Boolean.toString(testFile.exists())+"</td>");
-        bw.write("<td>"+Integer.toString(numberOfMatchedFunctions)+"</td>");
         bw.write("<td>"+Integer.toString(numberOfDeclaredFunctions)+"</td>");
         bw.write("<td>"+Integer.toString(numberOfFunctionCalls)+"</td>");
+        bw.write("<td>"+Integer.toString(numberOfMatchedFunctions)+"</td>");
         if(percentage<=100){
-        bw.write("<td>"+Integer.toString(percentage)+"</td>");
+        bw.write("<td>"+Integer.toString(percentage)+"%"+"</td>");
         }
         else{
         	bw.write("<td>"+"100"+"</td>");
@@ -125,7 +143,7 @@ public  class FileInfo{
 		testFilePath = slatwallDirectory+"meta/tests/unit"+beginningString+"Test.cfc";
 		this.testFile = new File(testFilePath);
 		
-		File fz = new File("/Users/ten24user/git/codecoverage/htmlOutput.html");
+		File fz = new File("htmlOutput.html");
 		   
         BufferedWriter bw = new BufferedWriter(new FileWriter(fz,true));
        // bw.write("<table>");

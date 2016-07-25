@@ -49,7 +49,7 @@ public class CFCodeCoverageChecker {
 	    
 		fileInfos = fileInfoService.populateFunctionsOnFileInfo(fileInfos);
 		
-		File file = new File("/Users/ten24user/git/codecoverage/htmlOutput.html");
+		File file = new File("htmlOutput.html");
 		
 		   
         BufferedWriter bbw = new BufferedWriter(new FileWriter(file,true));

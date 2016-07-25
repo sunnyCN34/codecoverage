@@ -57,7 +57,7 @@ public class FileInfoService{
 				walker.walk(listener,tree);
 				
 				fileInfo.functions = listener.functionNames;
-				
+				System.out.println("function name= "+fileInfo.functions.toString());
 				fileInfo.populateTestFile();
 				//check if functions are being testing in test files
 				if(fileInfo.testFile.exists()){
@@ -98,7 +98,7 @@ public class FileInfoService{
 			        bw.write("<td>"+"0"+"</td>");
 			        bw.write("<td>"+"0"+"</td>");
 			        
-			        bw.write("<td>"+"0"+"</td>");
+			        bw.write("<td>"+"0%"+"</td>");
 			       
 			        bw.write("</tr>");
 			   //     bw.write("</table>");
