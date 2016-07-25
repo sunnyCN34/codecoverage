@@ -62,7 +62,7 @@ public  class FileInfo{
         	bw.write("<td>"+"100"+"</td>");
         }
         bw.write("</tr>");
-        bw.write("</table>");
+    //    bw.write("</table>");
 	    
 		System.out.println("Total declared function= "+numberOfDeclaredFunctions+"  Total number of function calls= "+numberOfFunctionCalls+"  Total tested function= "+numberOfMatchedFunctions);
 		
@@ -128,7 +128,7 @@ public  class FileInfo{
 		File fz = new File("/Users/ten24user/git/codecoverage/htmlOutput.html");
 		   
         BufferedWriter bw = new BufferedWriter(new FileWriter(fz,true));
-        bw.write("<table>");
+       // bw.write("<table>");
        //   bw.write("<tr>");
      //   bw.write("<td>"+"Testing"+"</td>");
       //  bw.write("<td>"+"Test File Present For"+file.getName()+"</td>");

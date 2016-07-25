@@ -2,6 +2,7 @@ package codecoverage;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -100,7 +101,7 @@ public class FileInfoService{
 			        bw.write("<td>"+"0"+"</td>");
 			       
 			        bw.write("</tr>");
-			        bw.write("</table>");
+			   //     bw.write("</table>");
 			        bw.close();
 					System.out.println("Test file not found. Hence percentage of coverage is zero.");
 				} 
@@ -121,10 +122,12 @@ public class FileInfoService{
 		for (int i = 0; i < modelFolders.length; i++) {
 			
 	      if (modelFolders[i].isFile()) {
-	       
-	        //if we hit a file than we can inspect and create some fileinfo
-	        FileInfo fileInfo = this.getFileInfoByFile(modelFolders[i]);
-	        fileInfos.add(fileInfo);
+	        if(modelFolders[i].getName().indexOf(".cfm") >= 0 || modelFolders[i].getName().indexOf(".cfc") >= 0 ){
+	        	//if we hit a file than we can inspect and create some fileinfo
+		        FileInfo fileInfo = this.getFileInfoByFile(modelFolders[i]);
+		        fileInfos.add(fileInfo);
+	        }
+	        
 	      } else if (modelFolders[i].isDirectory()) {
 	        //if we are in a folder than recurse til we hit a file
 	    	

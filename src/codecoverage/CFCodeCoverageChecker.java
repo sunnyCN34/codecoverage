@@ -33,14 +33,16 @@ public class CFCodeCoverageChecker {
       //  bw.write("<textarea cols=120 rows=30>")
       //  bw.close();
         bw.write("<table>");
+        bw.write("<thead>");
         bw.write("<tr>");
-        bw.write("<td>"+"Testing"+"</td>");
-        bw.write("<td>"+"Test File Present"+"</td>");
-        bw.write("<td>"+"Total Declared Function"+"</td>");
-        bw.write("<td>"+"Total number of function calls"+"</td>");
-        bw.write("<td>"+"Total Tested function"+"</td>");
-        bw.write("<td>"+"Total Percentage Of Coverage For This File"+"</td>");
+        bw.write("<th>"+"Testing"+"</th>");
+        bw.write("<th>"+"Test File Present"+"</th>");
+        bw.write("<th>"+"Total Declared Function"+"</th>");
+        bw.write("<th>"+"Total number of function calls"+"</th>");
+        bw.write("<th>"+"Total Tested function"+"</th>");
+        bw.write("<th>"+"Total Percentage Of Coverage For This File"+"</th>");
         bw.write("</tr>");
+        bw.write("</thead>");
         bw.close();
 		List<FileInfo> fileInfos = fileInfoService.getFileInfosByModelPath(modelPath,true);
 	   
@@ -48,8 +50,10 @@ public class CFCodeCoverageChecker {
 		fileInfos = fileInfoService.populateFunctionsOnFileInfo(fileInfos);
 		
 		File file = new File("/Users/ten24user/git/codecoverage/htmlOutput.html");
+		
 		   
         BufferedWriter bbw = new BufferedWriter(new FileWriter(file,true));
+        bbw.write("</table>");
         bbw.write("<p>"+"OVERALL REPORT FOR CODE COVERAGE"+"</p>");
        
     
