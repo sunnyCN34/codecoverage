@@ -43,7 +43,7 @@ public  class FileInfo{
 		}
 		int percentage= (numberOfMatchedFunctions*100)/ numberOfDeclaredFunctions;
 		
-	    File fc = new File("/Users/ten24user/git/codecoverage/htmlOutput.html");
+	    File fc = new File("htmlOutput.html");
 	   
         BufferedWriter bw = new BufferedWriter(new FileWriter(fc,true));
   //      bw.write("<table>");

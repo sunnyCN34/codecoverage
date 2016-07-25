@@ -85,7 +85,7 @@ public class FileInfoService{
 				//fileInfo.getReportOfTestedFunction();
 				else
 				{
-					File fk = new File("/Users/ten24user/git/codecoverage/htmlOutput.html");
+					File fk = new File("htmlOutput.html");
 					   
 			        BufferedWriter bw = new BufferedWriter(new FileWriter(fk,true));
 			       // bw.write("\n\nTest file not found. Hence percentage of coverage is zero.");

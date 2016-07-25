@@ -11,7 +11,7 @@ public class CFCodeCoverageChecker {
 	
 	static FileInfoService fileInfoService = ServiceFactory.getFileInfoService();
 	
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws FileNotFoundException, IOException{
 		
 		System.out.println("This is the main section ");
 		
