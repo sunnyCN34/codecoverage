@@ -166,4 +166,59 @@ public class FileInfoService{
 		
 		
 	}
+	public void getCompleteOverallReportOfCoverage() throws Exception{
+		File file = new File("htmlOutput.html");
+		
+		   
+        BufferedWriter bbw = new BufferedWriter(new FileWriter(file,true));
+        bbw.write("</table>");
+        bbw.write("<p>"+"OVERALL REPORT FOR CODE COVERAGE"+"</p>");
+       
+    
+	
+		int totalFunctions=ExtractFunctionTool.totalNumberOfFunction;
+		System.out.println("\nTotal number of functions in all the parsed files= "+totalFunctions);
+		bbw.write("<p>"+"Total number of functions in all the parsed files= "+ Integer.toString(totalFunctions)+"</p>");
+		
+	
+		int totalMatches=FileInfo.totalNumberOfMatchesInAllFiles;
+		
+		System.out.println("Total number of tested functions in all the files= "+totalMatches);
+		bbw.write("<p>"+"Total number of tested functions in all the files= "+ Integer.toString(totalMatches)+"</p>");
+		
+		int totalCoverage= (totalMatches*100)/totalFunctions;
+		
+		System.out.println("\nTotal percentage of coverage we have for Slatwall is= "+totalCoverage+"%");
+		 bbw.write("<p>"+"Total percentage of coverage we have for Slatwall is= "+Integer.toString(totalCoverage)+"%"+"<p>");
+	       
+	
+	        bbw.write("</body>");
+	        bbw.write("</html>");
+
+	        
+	        bbw.close();
+
+	}
+	public void createHtmlFileAndTableHeads() throws Exception{
+
+        File f = new File("htmlOutput.html");
+        BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+       
+        bw.write("<html>");
+        bw.write("<body>");
+        bw.write("<h1>Report For Code Coverage In Slatwall</h1>");
+     
+        bw.write("<table>");
+        bw.write("<thead>");
+        bw.write("<tr>");
+        bw.write("<th>"+"Testing"+"</th>");
+        bw.write("<th>"+"Test File Present"+"</th>");
+        bw.write("<th>"+"Total Declared Function"+"</th>");
+        bw.write("<th>"+"Total number of function calls"+"</th>");
+        bw.write("<th>"+"Total Tested function"+"</th>");
+        bw.write("<th>"+"Total Percentage Of Coverage For This File"+"</th>");
+        bw.write("</tr>");
+        bw.write("</thead>");
+        bw.close();
+	}
 }
