@@ -28,7 +28,7 @@ public class FileInfoService{
 		return fileInfo;
 	}
 	
-	int totalFunctions=0; int finalTotalFunctions=0;
+	int totalFunctions=0; int finalTotalFunctions=0; int finalMatchedFunctions=0;
 	
 	public List<FileInfo> populateFunctionsOnFileInfo(List<FileInfo> fileInfos){
 		//iterate over the fileInfo objects and parse the files to get functions
@@ -58,9 +58,9 @@ public class FileInfoService{
 				totalFunctions= listener.totalNumberOfFunction;
 				//last=totalFunctions;
 				finalTotalFunctions=finalTotalFunctions+totalFunctions;
-				 System.out.println("\nThis is the value you need to experiment with="+totalFunctions+" last="+finalTotalFunctions);
+		//		 System.out.println("\nThis is the value you need to experiment with="+totalFunctions+" last="+finalTotalFunctions);
 				fileInfo.functions = listener.functionNames;
-				System.out.println("function name= "+fileInfo.functions.toString());
+		//		System.out.println("function name= "+fileInfo.functions.toString());
 				fileInfo.populateTestFile();
 				//check if functions are being testing in test files
 				if(fileInfo.testFile.exists()){
@@ -84,6 +84,8 @@ public class FileInfoService{
 				
 				testWalker.walk(testListener,testTree);
 				fileInfo.getReportOfTestedFunction();
+				finalMatchedFunctions=finalMatchedFunctions+fileInfo.totalNumberOfMatchesInAllFiles;
+				System.out.println("This value="+finalMatchedFunctions);
 				}
 				//fileInfo.getReportOfTestedFunction();
 				else
@@ -192,12 +194,12 @@ public class FileInfoService{
 		bbw.write("<p>"+"Total number of functions in all the parsed files= "+ Integer.toString(finalTotalFunctions)+"</p>");
 		
 	
-		int totalMatches=FileInfo.totalNumberOfMatchesInAllFiles;
+	//	int totalMatches=FileInfo.totalNumberOfMatchesInAllFiles;
 		
-		System.out.println("Total number of tested functions in all the files= "+totalMatches);
-		bbw.write("<p>"+"Total number of tested functions in all the files= "+ Integer.toString(totalMatches)+"</p>");
+		System.out.println("Total number of tested functions in all the files= "+finalMatchedFunctions);
+		bbw.write("<p>"+"Total number of tested functions in all the files= "+ Integer.toString(finalMatchedFunctions)+"</p>");
 		
-		int totalCoverage= (totalMatches*100)/finalTotalFunctions;
+		int totalCoverage= (finalMatchedFunctions*100)/finalTotalFunctions;
 		
 		System.out.println("\nTotal percentage of coverage we have for Slatwall is= "+totalCoverage+"%");
 		 bbw.write("<p>"+"Total percentage of coverage we have for Slatwall is= "+Integer.toString(totalCoverage)+"%"+"<p>");

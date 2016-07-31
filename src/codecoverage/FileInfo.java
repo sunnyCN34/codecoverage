@@ -17,7 +17,7 @@ public  class FileInfo{
 	Set<String> experiment= new HashSet<>();
 	int a=0;
 	
-	static int totalNumberOfMatchesInAllFiles=0;
+	 int totalNumberOfMatchesInAllFiles=0;
 	public static String testFilePath;
 	FileInfo(File file){
 		
