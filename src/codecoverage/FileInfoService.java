@@ -28,7 +28,7 @@ public class FileInfoService{
 		return fileInfo;
 	}
 	
-	
+	int totalFunctions=0; int finalTotalFunctions=0;
 	
 	public List<FileInfo> populateFunctionsOnFileInfo(List<FileInfo> fileInfos){
 		//iterate over the fileInfo objects and parse the files to get functions
@@ -55,7 +55,10 @@ public class FileInfoService{
 				ExtractFunctionTool listener = new ExtractFunctionTool();
 				
 				walker.walk(listener,tree);
-				
+				totalFunctions= listener.totalNumberOfFunction;
+				//last=totalFunctions;
+				finalTotalFunctions=finalTotalFunctions+totalFunctions;
+				 System.out.println("\nThis is the value you need to experiment with="+totalFunctions+" last="+finalTotalFunctions);
 				fileInfo.functions = listener.functionNames;
 				System.out.println("function name= "+fileInfo.functions.toString());
 				fileInfo.populateTestFile();
@@ -174,11 +177,19 @@ public class FileInfoService{
         bbw.write("</table>");
         bbw.write("<p>"+"OVERALL REPORT FOR CODE COVERAGE"+"</p>");
        
-    
-	
-		int totalFunctions=ExtractFunctionTool.totalNumberOfFunction;
-		System.out.println("\nTotal number of functions in all the parsed files= "+totalFunctions);
-		bbw.write("<p>"+"Total number of functions in all the parsed files= "+ Integer.toString(totalFunctions)+"</p>");
+       int totalFunctions=0;
+//        //Compilation error not allowed
+// obj = SingletonClass.getSingletonObject();
+  //     FileInfoService fileInfoService = ServiceFactory.getFileInfoService();
+	//	 totalFunctions=fileInfoService.totalNumberOfFunction;
+       // int totalfunctions=ExtractFunctionTool.totalNumberOfFunction;
+		 
+
+	//		ExtractFunctionTool listener = new ExtractFunctionTool();
+	//		totalFunctions= listener.totalNumberOfFunction;
+		// System.out.println("\nThis is the value you need to experiment with="+totalFunctions);
+		System.out.println("\nTotal number of functions in all the parsed files= "+finalTotalFunctions);
+		bbw.write("<p>"+"Total number of functions in all the parsed files= "+ Integer.toString(finalTotalFunctions)+"</p>");
 		
 	
 		int totalMatches=FileInfo.totalNumberOfMatchesInAllFiles;
@@ -186,7 +197,7 @@ public class FileInfoService{
 		System.out.println("Total number of tested functions in all the files= "+totalMatches);
 		bbw.write("<p>"+"Total number of tested functions in all the files= "+ Integer.toString(totalMatches)+"</p>");
 		
-		int totalCoverage= (totalMatches*100)/totalFunctions;
+		int totalCoverage= (totalMatches*100)/finalTotalFunctions;
 		
 		System.out.println("\nTotal percentage of coverage we have for Slatwall is= "+totalCoverage+"%");
 		 bbw.write("<p>"+"Total percentage of coverage we have for Slatwall is= "+Integer.toString(totalCoverage)+"%"+"<p>");

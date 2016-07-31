@@ -6,17 +6,24 @@ import java.util.*;
 
 public class ExtractFunctionTool extends CFSCRIPTParserBaseListener {
 	List<String> functionNames = new ArrayList<String>();
-	static int totalNumberOfFunction=0;
+   int totalNumberOfFunction=0;
+//private static ExtractFunctionTool singletonObject;
+//private ExtractFunctionTool(){}
+//public static synchronized ExtractFunctionTool getSingletonObject(){
+//	if(singletonObject==null){
+//		singletonObject= new ExtractFunctionTool();
+//	}
+//	return singletonObject;
+//}
 
 	@Override
 	public void enterFunctionDeclaration(CFSCRIPTParser.FunctionDeclarationContext ctx) {
-	//	String declared=ctx.identifier().getText();
-		//System.out.println(declared);
+	
 		totalNumberOfFunction ++;
 	
 		functionNames.add(ctx.identifier().getText());
-	
-	//	System.out.println("number of functions="+totalNumberOfFunction);
+	//	System.out.println("this is the value number of functions="+totalNumberOfFunction);
+		
 	/*	for (int i=0;i < functionNames.size();i++)
 		{
 			count ++;
